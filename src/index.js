@@ -6,8 +6,6 @@ const projectContainer = document.querySelector('.projectcontainer');
 
 /* factories */
 function createProject(name) {
-    console.log('creating project');
-
     name = name;
     let todoList = [];
 
@@ -133,7 +131,61 @@ function domUpdate() {
         domUpdate();
     })
     projectContainer.appendChild(newProjectButton);
+    storageSet();
 }
+
+function storageAvailable(type) {
+    let storage;
+    try {
+        storage = window[type];
+        const x = "__storage_test__";
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    } catch (e) {
+        return (
+            e instanceof DOMException &&
+            // everything except Firefox
+            (e.code === 22 ||
+                // Firefox
+                e.code === 1014 ||
+                // test name field too, because code might not be present
+                // everything except Firefox
+                e.name === "QuotaExceededError" ||
+                // Firefox
+                e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            storage &&
+            storage.length !== 0
+        );
+    }
+}
+
+function storageSet() {
+    if (!storageAvailable('localStorage')) {
+        console.log('Local storage unavailable.');
+    } else {
+        console.log('Setting local storage.');
+        localStorage.setItem('projectList', JSON.stringify(projectList));
+    };
+}
+
+function storageGet() {
+    if (!storageAvailable('localStorage')) {
+        console.log('Local storage unavailable.');
+    } else if (localStorage.getItem('projectList')) {
+        console.log('Getting local storage.');
+        let newProjectList = JSON.parse(localStorage.getItem('projectList'));
+        console.log(newProjectList);
+        // restore project methods
+        for (let i = 0; i < newProjectList.length; i++) {
+            newProjectList[i] = Object.assign(createProject(), newProjectList[i]);
+        }
+        console.log(newProjectList);
+        projectList = newProjectList;
+    };
+}
+
 
 /* tests */
 projectList.push(createProject('goo'));
@@ -142,6 +194,6 @@ projectList.push(createProject('boo'));
 projectList[1].addTodo('baa', true, 'description', '2023-11-28');
 projectList[1].addTodo('baa', true, 'description', '2023-11-28');
 projectList[1].addTodo('baa', true, 'description', '2023-11-28');
-console.log(projectList);
 
+storageGet();
 domUpdate();
