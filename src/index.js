@@ -23,7 +23,6 @@ function createTodo(name, complete, description, date, priority) {
     date = date;
     priority = priority;
 
-
     return { name, complete, description, date, priority };
 };
 
@@ -40,6 +39,7 @@ function domUpdate() {
         nameElement.innerHTML = project.name;
         nameElement.setAttribute('contenteditable', 'true');
         nameElement.addEventListener('input', (e) => project.name = e.target.textContent);
+        nameElement.oninput = (() => storageSet());
         projectElement.appendChild(nameElement);
 
         let projectDeleteButton = document.createElement('button');
@@ -63,6 +63,7 @@ function domUpdate() {
             nameElement.innerHTML = todo.name;
             nameElement.setAttribute('contenteditable', 'true');
             nameElement.addEventListener('input', (e) => todo.name = e.target.textContent);
+            nameElement.oninput = (() => storageSet());
             todoElement.appendChild(nameElement);
 
             let completeElement = document.createElement('input');
@@ -70,6 +71,7 @@ function domUpdate() {
             completeElement.classList.add('complete');
             completeElement.checked = todo.complete;
             completeElement.addEventListener('input', (e) => todo.complete = e.target.checked);
+            completeElement.oninput = (() => storageSet());
             todoElement.appendChild(completeElement);
 
             let descriptionElement = document.createElement('div');
@@ -77,6 +79,7 @@ function domUpdate() {
             descriptionElement.innerHTML = todo.description;
             descriptionElement.setAttribute('contenteditable', 'true');
             descriptionElement.addEventListener('input', (e) => todo.description = e.target.textContent);
+            descriptionElement.oninput = (() => storageSet());
             todoElement.appendChild(descriptionElement);
 
             let dateElement = document.createElement('input');
@@ -84,19 +87,23 @@ function domUpdate() {
             dateElement.classList.add('date');
             dateElement.value = todo.date;
             dateElement.addEventListener('input', (e) => todo.date = e.target.value);
+            dateElement.oninput = (() => storageSet());
             todoElement.appendChild(dateElement);
 
             let priorityGreenElement = document.createElement('button');
             priorityGreenElement.classList.add('priority', 'green');
             priorityGreenElement.addEventListener('click', (e) => todo.priority = 'green');
+            priorityGreenElement.oninput = (() => storageSet());
             todoElement.appendChild(priorityGreenElement);
             let priorityYellowElement = document.createElement('button');
             priorityYellowElement.classList.add('priority', 'yellow');
             priorityYellowElement.addEventListener('click', (e) => todo.priority = 'yellow');
+            priorityYellowElement.oninput = (() => storageSet());
             todoElement.appendChild(priorityYellowElement);
             let priorityRedElement = document.createElement('button');
             priorityRedElement.classList.add('priority', 'red');
             priorityRedElement.addEventListener('click', (e) => todo.priority = 'red');
+            priorityRedElement.oninput = (() => storageSet());
             todoElement.appendChild(priorityRedElement);
 
             let todoDeleteButton = document.createElement('button');
@@ -190,7 +197,6 @@ function storageGet() {
         }
     };
 }
-
 
 /* tests */
 projectList.push(createProject('goo'));
