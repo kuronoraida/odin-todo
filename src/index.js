@@ -27,6 +27,10 @@ function createTodo(name, complete, description, date, priority) {
 };
 
 /* functions */
+function today() {
+    return new Date().toJSON().slice(0, 10);
+}
+
 function domUpdate() {
     projectContainer.innerHTML = '';
     for (const project of projectList) {
@@ -139,7 +143,7 @@ function domUpdate() {
         newTodoButton.classList.add('new');
         newTodoButton.innerHTML = '+';
         newTodoButton.addEventListener('click', () => {
-            project.addTodo('New todo', false, 'Description', '2023-11-28', 'green');
+            project.addTodo('New todo', false, 'Description', today(), 'green');
             domUpdate();
         })
         projectElement.appendChild(newTodoButton);
@@ -214,14 +218,6 @@ function storageGet() {
         }
     };
 }
-
-/* tests */
-projectList.push(createProject('goo'));
-projectList[0].addTodo('baa', false, 'description', '2023-11-28', 'green');
-projectList.push(createProject('boo'));
-projectList[1].addTodo('baa', true, 'description', '2023-11-28', 'green');
-projectList[1].addTodo('baa', true, 'description', '2023-11-28', 'green');
-projectList[1].addTodo('baa', true, 'description', '2023-11-28', 'green');
 
 storageGet();
 domUpdate();
