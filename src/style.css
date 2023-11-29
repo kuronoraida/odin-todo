@@ -9,3 +9,15 @@ body {
 .todo {
     background-color: lightgrey;
 }
+
+.green {
+    background-color: lightgreen;
+}
+
+.yellow {
+    background-color: lightyellow;
+}
+
+.red {
+    background-color: pink;
+}

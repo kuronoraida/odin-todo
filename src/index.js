@@ -57,6 +57,7 @@ function domUpdate() {
             // add todo
             let todoElement = document.createElement('div');
             todoElement.classList.add('todo');
+            todoElement.classList.add(todo.priority);
 
             let nameElement = document.createElement('div');
             nameElement.classList.add('name');
@@ -92,17 +93,33 @@ function domUpdate() {
 
             let priorityGreenElement = document.createElement('button');
             priorityGreenElement.classList.add('priority', 'green');
-            priorityGreenElement.addEventListener('click', (e) => todo.priority = 'green');
-            priorityGreenElement.oninput = (() => storageSet());
+            priorityGreenElement.addEventListener('click', (e) => {
+                todo.priority = 'green';
+                e.target.parentElement.classList.replace('yellow', 'green');
+                e.target.parentElement.classList.replace('red', 'green');
+                storageSet();
+            });
             todoElement.appendChild(priorityGreenElement);
+
             let priorityYellowElement = document.createElement('button');
             priorityYellowElement.classList.add('priority', 'yellow');
-            priorityYellowElement.addEventListener('click', (e) => todo.priority = 'yellow');
+            priorityYellowElement.addEventListener('click', (e) => {
+                todo.priority = 'yellow';
+                e.target.parentElement.classList.replace('green', 'yellow');
+                e.target.parentElement.classList.replace('red', 'yellow');
+                storageSet();
+            });
             priorityYellowElement.oninput = (() => storageSet());
             todoElement.appendChild(priorityYellowElement);
+
             let priorityRedElement = document.createElement('button');
             priorityRedElement.classList.add('priority', 'red');
-            priorityRedElement.addEventListener('click', (e) => todo.priority = 'red');
+            priorityRedElement.addEventListener('click', (e) => {
+                todo.priority = 'red';
+                e.target.parentElement.classList.replace('green', 'red');
+                e.target.parentElement.classList.replace('yellow', 'red');
+                storageSet();
+            });
             priorityRedElement.oninput = (() => storageSet());
             todoElement.appendChild(priorityRedElement);
 
@@ -122,7 +139,7 @@ function domUpdate() {
         newTodoButton.classList.add('new');
         newTodoButton.innerHTML = '+';
         newTodoButton.addEventListener('click', () => {
-            project.addTodo('New todo', false, 'Description', '2023-11-28');
+            project.addTodo('New todo', false, 'Description', '2023-11-28', 'green');
             domUpdate();
         })
         projectElement.appendChild(newTodoButton);
@@ -200,11 +217,11 @@ function storageGet() {
 
 /* tests */
 projectList.push(createProject('goo'));
-projectList[0].addTodo('baa', false, 'description', '2023-11-28');
+projectList[0].addTodo('baa', false, 'description', '2023-11-28', 'green');
 projectList.push(createProject('boo'));
-projectList[1].addTodo('baa', true, 'description', '2023-11-28');
-projectList[1].addTodo('baa', true, 'description', '2023-11-28');
-projectList[1].addTodo('baa', true, 'description', '2023-11-28');
+projectList[1].addTodo('baa', true, 'description', '2023-11-28', 'green');
+projectList[1].addTodo('baa', true, 'description', '2023-11-28', 'green');
+projectList[1].addTodo('baa', true, 'description', '2023-11-28', 'green');
 
 storageGet();
 domUpdate();
