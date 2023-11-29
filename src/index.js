@@ -17,8 +17,6 @@ function createProject(name) {
 };
 
 function createTodo(name, complete, description, date, priority) {
-    console.log('creating todo');
-
     name = name;
     complete = complete;
     description = description;
@@ -175,14 +173,23 @@ function storageGet() {
         console.log('Local storage unavailable.');
     } else if (localStorage.getItem('projectList')) {
         console.log('Getting local storage.');
-        let newProjectList = JSON.parse(localStorage.getItem('projectList'));
-        console.log(newProjectList);
-        // restore project methods
-        for (let i = 0; i < newProjectList.length; i++) {
-            newProjectList[i] = Object.assign(createProject(), newProjectList[i]);
+        let gotProjectList = JSON.parse(localStorage.getItem('projectList'));
+        // recreate project list from got project list to preserve methods
+        projectList = [];
+        for (let projectIndex = 0; projectIndex < gotProjectList.length; projectIndex++) {
+            // create project
+            projectList.push(createProject(gotProjectList[projectIndex].name));
+            for (let todoIndex = 0; todoIndex < gotProjectList[projectIndex].todoList.length; todoIndex++) {
+                // create todo
+                projectList[projectIndex].todoList.push(createTodo(
+                    gotProjectList[projectIndex].todoList[todoIndex].name,
+                    gotProjectList[projectIndex].todoList[todoIndex].complete,
+                    gotProjectList[projectIndex].todoList[todoIndex].description,
+                    gotProjectList[projectIndex].todoList[todoIndex].date,
+                    gotProjectList[projectIndex].todoList[todoIndex].priority
+                ));
+            }
         }
-        console.log(newProjectList);
-        projectList = newProjectList;
     };
 }
 
