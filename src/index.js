@@ -33,8 +33,9 @@ function createTodo(name, complete, description, date, priority) {
 
 /* functions */
 function domUpdate() {
+    projectContainer.innerHTML = '';
     for (const project of projectList) {
-        //draw project
+        // add project
         let projectElement = document.createElement('div');
         projectElement.classList.add('project');
 
@@ -48,7 +49,7 @@ function domUpdate() {
         projectContainer.appendChild(projectElement);
 
         for (const todo of project.todoList) {
-            // draw todo
+            // add todo
             let todoElement = document.createElement('div');
             todoElement.classList.add('todo');
 
@@ -95,8 +96,25 @@ function domUpdate() {
 
             projectElement.appendChild(todoElement);
         }
+        // add new todo button
+        let newTodoButton = document.createElement('button');
+        newTodoButton.classList.add('new');
+        newTodoButton.innerHTML = '+';
+        newTodoButton.addEventListener('click', () => {
+            project.addTodo('New todo', false, 'Description', '2023-11-28');
+            domUpdate();
+        })
+        projectElement.appendChild(newTodoButton);
     }
-    return;
+    // add new project button
+    let newProjectButton = document.createElement('button');
+    newProjectButton.classList.add('new');
+    newProjectButton.innerHTML = '+';
+    newProjectButton.addEventListener('click', () => {
+        projectList.push(createProject('New project'));
+        domUpdate();
+    })
+    projectContainer.appendChild(newProjectButton);
 }
 
 /* tests */
