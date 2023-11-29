@@ -161,18 +161,16 @@ function storageAvailable(type) {
 
 function storageSet() {
     if (!storageAvailable('localStorage')) {
-        console.log('Local storage unavailable.');
+        return;
     } else {
-        console.log('Setting local storage.');
         localStorage.setItem('projectList', JSON.stringify(projectList));
     };
 }
 
 function storageGet() {
     if (!storageAvailable('localStorage')) {
-        console.log('Local storage unavailable.');
+        return;
     } else if (localStorage.getItem('projectList')) {
-        console.log('Getting local storage.');
         let gotProjectList = JSON.parse(localStorage.getItem('projectList'));
         // recreate project list from got project list to preserve methods
         projectList = [];
