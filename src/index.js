@@ -46,6 +46,15 @@ function domUpdate() {
         nameElement.addEventListener('input', (e) => project.name = e.target.textContent);
         projectElement.appendChild(nameElement);
 
+        let projectDeleteButton = document.createElement('button');
+        projectDeleteButton.classList.add('delete');
+        projectDeleteButton.innerHTML = 'X';
+        projectDeleteButton.addEventListener('click', () => {
+            projectList = projectList.filter((e) => e !== project);
+            domUpdate();
+        });
+        projectElement.appendChild(projectDeleteButton);
+
         projectContainer.appendChild(projectElement);
 
         for (const todo of project.todoList) {
@@ -93,6 +102,15 @@ function domUpdate() {
             priorityRedElement.classList.add('priority', 'red');
             priorityRedElement.addEventListener('click', (e) => todo.priority = 'red');
             todoElement.appendChild(priorityRedElement);
+
+            let todoDeleteButton = document.createElement('button');
+            todoDeleteButton.classList.add('delete');
+            todoDeleteButton.innerHTML = 'X';
+            todoDeleteButton.addEventListener('click', () => {
+                project.todoList = project.todoList.filter((e) => e !== todo);
+                domUpdate();
+            });
+            todoElement.appendChild(todoDeleteButton);
 
             projectElement.appendChild(todoElement);
         }
