@@ -57,11 +57,52 @@ body {
     align-items: center;
 }
 
+h1 {
+    font-style: bold;
+    font-size: 2em;
+    padding: 15px;
+}
+
 button {
     height: 40px;
     width: 40px;
     border-radius: 999px;
+    border: solid 2px black;
+}
+
+input[type='checkbox'] {
+    height: 40px;
+    width: 40px;
+    border-radius: 999px;
     border-style: none;
+    margin: 0;
+    clip-path: circle(20px);
+    appearance: none;
+    background-color: white;
+    border: solid 2px black;
+    margin-left: auto;
+}
+
+input[type='checkbox']:checked {
+    appearance: auto;
+}
+
+.buttonbox {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    padding: 15px;
+}
+
+.titlebox {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: start;
+}
+
+.titlebox>.name {
+    flex: 1;
 }
 
 [contenteditable] {
@@ -70,18 +111,16 @@ button {
 
 .container {
     width: min(90%, 800px);
-    margin: 10px;
 }
 
 .projectcontainer {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 .project {
     background-color: whitesmoke;
-    padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -91,8 +130,8 @@ button {
 
 .todo {
     background-color: lightgrey;
-    padding: 10px;
     border-radius: 10px;
+    margin: 0px 15px;
 }
 
 .green {
@@ -109,8 +148,16 @@ button {
 
 .name {
     font-size: 1.5em;
-    min-height: 40px;
-    padding: 5px;
+    padding: 15px;
+}
+
+.description {
+    font-size: 1em;
+    padding: 15px;
+}
+
+.date {
+    margin: 0px 15px;
 }
 
 .newproject,
@@ -122,13 +169,19 @@ button {
     color: white;
     background-color: black;
     align-self: center;
+    margin-bottom: 15px;
 }
 
-.delete {
+.deleteproject,
+.deletetodo {
     height: 40px;
     width: 40px;
     border-radius: 999px;
     border-style: none;
     color: white;
     background-color: black;
+}
+
+.deleteproject {
+    margin: 15px;
 }

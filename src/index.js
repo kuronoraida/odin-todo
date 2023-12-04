@@ -38,22 +38,26 @@ function domUpdate() {
         let projectElement = document.createElement('div');
         projectElement.classList.add('project');
 
+        let buttonBox = document.createElement('div');
+        buttonBox.classList.add('titlebox');
+        projectElement.appendChild(buttonBox);
+
         let nameElement = document.createElement('div');
         nameElement.classList.add('name');
         nameElement.innerHTML = project.name;
         nameElement.setAttribute('contenteditable', 'true');
         nameElement.addEventListener('input', (e) => project.name = e.target.textContent);
         nameElement.oninput = (() => storageSet());
-        projectElement.appendChild(nameElement);
+        buttonBox.appendChild(nameElement);
 
         let projectDeleteButton = document.createElement('button');
-        projectDeleteButton.classList.add('delete');
+        projectDeleteButton.classList.add('deleteproject');
         projectDeleteButton.innerHTML = 'X';
         projectDeleteButton.addEventListener('click', () => {
             projectList = projectList.filter((e) => e !== project);
             domUpdate();
         });
-        projectElement.appendChild(projectDeleteButton);
+        buttonBox.appendChild(projectDeleteButton);
 
         projectContainer.appendChild(projectElement);
 
@@ -71,14 +75,6 @@ function domUpdate() {
             nameElement.oninput = (() => storageSet());
             todoElement.appendChild(nameElement);
 
-            let descriptionElement = document.createElement('div');
-            descriptionElement.classList.add('description');
-            descriptionElement.innerHTML = todo.description;
-            descriptionElement.setAttribute('contenteditable', 'true');
-            descriptionElement.addEventListener('input', (e) => todo.description = e.target.textContent);
-            descriptionElement.oninput = (() => storageSet());
-            todoElement.appendChild(descriptionElement);
-
             let dateElement = document.createElement('input');
             dateElement.setAttribute('type', 'date');
             dateElement.classList.add('date');
@@ -87,9 +83,16 @@ function domUpdate() {
             dateElement.oninput = (() => storageSet());
             todoElement.appendChild(dateElement);
 
+            let descriptionElement = document.createElement('div');
+            descriptionElement.classList.add('description');
+            descriptionElement.innerHTML = todo.description;
+            descriptionElement.setAttribute('contenteditable', 'true');
+            descriptionElement.addEventListener('input', (e) => todo.description = e.target.textContent);
+            descriptionElement.oninput = (() => storageSet());
+            todoElement.appendChild(descriptionElement);
+
             let buttonBox = document.createElement('div');
-            buttonBox.style.display = 'flex';
-            buttonBox.style.flexDirection = 'row';
+            buttonBox.classList.add('buttonbox');
             todoElement.appendChild(buttonBox);
 
             let priorityGreenElement = document.createElement('button');
@@ -107,7 +110,7 @@ function domUpdate() {
             priorityYellowElement.addEventListener('click', (e) => {
                 todo.priority = 'yellow';
                 e.target.parentElement.parentElement.classList.replace('green', 'yellow');
-                e.target.parentElement.parentElementclassList.replace('red', 'yellow');
+                e.target.parentElement.parentElement.classList.replace('red', 'yellow');
                 storageSet();
             });
             priorityYellowElement.oninput = (() => storageSet());
@@ -133,7 +136,7 @@ function domUpdate() {
             buttonBox.appendChild(completeElement);
 
             let todoDeleteButton = document.createElement('button');
-            todoDeleteButton.classList.add('delete');
+            todoDeleteButton.classList.add('deletetodo');
             todoDeleteButton.innerHTML = 'X';
             todoDeleteButton.addEventListener('click', () => {
                 project.todoList = project.todoList.filter((e) => e !== todo);
