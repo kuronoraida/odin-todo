@@ -1,4 +1,5 @@
 import './style.css';
+import { arrayMoveMutable } from 'array-move';
 
 /* definitions */
 let projectList = [];
@@ -143,6 +144,28 @@ function domUpdate() {
                 domUpdate();
             });
             buttonBox.appendChild(todoDeleteButton);
+
+            let todoUpButton = document.createElement('button');
+            todoUpButton.innerHTML = 'Up';
+            todoUpButton.addEventListener('click', () => {
+                let todoIndex = project.todoList.findIndex((e) => e === todo);
+                if (todoIndex > 0) {
+                    arrayMoveMutable(project.todoList, todoIndex, todoIndex - 1);
+                    domUpdate();
+                }
+            });
+            buttonBox.appendChild(todoUpButton);
+
+            let todoDownButton = document.createElement('button');
+            todoDownButton.innerHTML = 'Down';
+            todoDownButton.addEventListener('click', () => {
+                let todoIndex = project.todoList.findIndex((e) => e === todo);
+                if (todoIndex < project.todoList.length - 1) {
+                    arrayMoveMutable(project.todoList, todoIndex, todoIndex + 1);
+                    domUpdate();
+                }
+            });
+            buttonBox.appendChild(todoDownButton);
 
             projectElement.appendChild(todoElement);
         }
