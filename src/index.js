@@ -75,14 +75,6 @@ function domUpdate() {
             nameElement.oninput = (() => storageSet());
             todoElement.appendChild(nameElement);
 
-            let dateElement = document.createElement('input');
-            dateElement.setAttribute('type', 'date');
-            dateElement.classList.add('date');
-            dateElement.value = todo.date;
-            dateElement.addEventListener('input', (e) => todo.date = e.target.value);
-            dateElement.oninput = (() => storageSet());
-            todoElement.appendChild(dateElement);
-
             let descriptionElement = document.createElement('div');
             descriptionElement.classList.add('description');
             descriptionElement.innerHTML = todo.description;
@@ -126,6 +118,14 @@ function domUpdate() {
             });
             priorityRedElement.oninput = (() => storageSet());
             buttonBox.appendChild(priorityRedElement);
+
+            let dateElement = document.createElement('input');
+            dateElement.setAttribute('type', 'date');
+            dateElement.classList.add('date');
+            dateElement.value = todo.date;
+            dateElement.addEventListener('input', (e) => todo.date = e.target.value);
+            dateElement.oninput = (() => storageSet());
+            buttonBox.appendChild(dateElement);
 
             let completeElement = document.createElement('input');
             completeElement.setAttribute('type', 'checkbox');
