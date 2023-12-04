@@ -147,7 +147,6 @@ input[type='date'] {
 }
 
 .todo {
-    background-color: lightgrey;
     border: 2px solid black;
     border-radius: 10px;
     margin: 0px 15px;
@@ -163,6 +162,10 @@ input[type='date'] {
 
 .red {
     background-color: #fb7185;
+}
+
+.complete {
+    opacity: 25%;
 }
 
 .name {

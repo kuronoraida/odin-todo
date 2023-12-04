@@ -67,6 +67,9 @@ function domUpdate() {
             let todoElement = document.createElement('div');
             todoElement.classList.add('todo');
             todoElement.classList.add(todo.priority);
+            if (todo.complete) {
+                todoElement.classList.add('complete');
+            }
 
             let nameElement = document.createElement('div');
             nameElement.classList.add('name');
@@ -130,9 +133,16 @@ function domUpdate() {
 
             let completeElement = document.createElement('input');
             completeElement.setAttribute('type', 'checkbox');
-            completeElement.classList.add('complete');
             completeElement.checked = todo.complete;
-            completeElement.addEventListener('input', (e) => todo.complete = e.target.checked);
+            completeElement.addEventListener('input', (e) => {
+                todo.complete = e.target.checked;
+                if (e.target.checked) {
+                    e.target.parentElement.parentElement.classList.add('complete');
+                } else {
+                    e.target.parentElement.parentElement.classList.remove('complete');
+                }
+                domUpdate();
+            });
             completeElement.oninput = (() => storageSet());
             buttonBox.appendChild(completeElement);
 
