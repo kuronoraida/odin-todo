@@ -71,14 +71,6 @@ function domUpdate() {
             nameElement.oninput = (() => storageSet());
             todoElement.appendChild(nameElement);
 
-            let completeElement = document.createElement('input');
-            completeElement.setAttribute('type', 'checkbox');
-            completeElement.classList.add('complete');
-            completeElement.checked = todo.complete;
-            completeElement.addEventListener('input', (e) => todo.complete = e.target.checked);
-            completeElement.oninput = (() => storageSet());
-            todoElement.appendChild(completeElement);
-
             let descriptionElement = document.createElement('div');
             descriptionElement.classList.add('description');
             descriptionElement.innerHTML = todo.description;
@@ -95,37 +87,50 @@ function domUpdate() {
             dateElement.oninput = (() => storageSet());
             todoElement.appendChild(dateElement);
 
+            let buttonBox = document.createElement('div');
+            buttonBox.style.display = 'flex';
+            buttonBox.style.flexDirection = 'row';
+            todoElement.appendChild(buttonBox);
+
             let priorityGreenElement = document.createElement('button');
             priorityGreenElement.classList.add('priority', 'green');
             priorityGreenElement.addEventListener('click', (e) => {
                 todo.priority = 'green';
-                e.target.parentElement.classList.replace('yellow', 'green');
-                e.target.parentElement.classList.replace('red', 'green');
+                e.target.parentElement.parentElement.classList.replace('yellow', 'green');
+                e.target.parentElement.parentElement.classList.replace('red', 'green');
                 storageSet();
             });
-            todoElement.appendChild(priorityGreenElement);
+            buttonBox.appendChild(priorityGreenElement);
 
             let priorityYellowElement = document.createElement('button');
             priorityYellowElement.classList.add('priority', 'yellow');
             priorityYellowElement.addEventListener('click', (e) => {
                 todo.priority = 'yellow';
-                e.target.parentElement.classList.replace('green', 'yellow');
-                e.target.parentElement.classList.replace('red', 'yellow');
+                e.target.parentElement.parentElement.classList.replace('green', 'yellow');
+                e.target.parentElement.parentElementclassList.replace('red', 'yellow');
                 storageSet();
             });
             priorityYellowElement.oninput = (() => storageSet());
-            todoElement.appendChild(priorityYellowElement);
+            buttonBox.appendChild(priorityYellowElement);
 
             let priorityRedElement = document.createElement('button');
             priorityRedElement.classList.add('priority', 'red');
             priorityRedElement.addEventListener('click', (e) => {
                 todo.priority = 'red';
-                e.target.parentElement.classList.replace('green', 'red');
-                e.target.parentElement.classList.replace('yellow', 'red');
+                e.target.parentElement.parentElement.classList.replace('green', 'red');
+                e.target.parentElement.parentElement.classList.replace('yellow', 'red');
                 storageSet();
             });
             priorityRedElement.oninput = (() => storageSet());
-            todoElement.appendChild(priorityRedElement);
+            buttonBox.appendChild(priorityRedElement);
+
+            let completeElement = document.createElement('input');
+            completeElement.setAttribute('type', 'checkbox');
+            completeElement.classList.add('complete');
+            completeElement.checked = todo.complete;
+            completeElement.addEventListener('input', (e) => todo.complete = e.target.checked);
+            completeElement.oninput = (() => storageSet());
+            buttonBox.appendChild(completeElement);
 
             let todoDeleteButton = document.createElement('button');
             todoDeleteButton.classList.add('delete');
@@ -134,13 +139,13 @@ function domUpdate() {
                 project.todoList = project.todoList.filter((e) => e !== todo);
                 domUpdate();
             });
-            todoElement.appendChild(todoDeleteButton);
+            buttonBox.appendChild(todoDeleteButton);
 
             projectElement.appendChild(todoElement);
         }
         // add new todo button
         let newTodoButton = document.createElement('button');
-        newTodoButton.classList.add('new');
+        newTodoButton.classList.add('newtodo');
         newTodoButton.innerHTML = '+';
         newTodoButton.addEventListener('click', () => {
             project.addTodo('New todo', false, 'Description', today(), 'green');
@@ -150,7 +155,7 @@ function domUpdate() {
     }
     // add new project button
     let newProjectButton = document.createElement('button');
-    newProjectButton.classList.add('new');
+    newProjectButton.classList.add('newproject');
     newProjectButton.innerHTML = '+';
     newProjectButton.addEventListener('click', () => {
         projectList.push(createProject('New project'));
