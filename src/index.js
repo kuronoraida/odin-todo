@@ -55,8 +55,10 @@ function domUpdate() {
         projectDeleteButton.classList.add('deleteproject');
         projectDeleteButton.innerHTML = 'X';
         projectDeleteButton.addEventListener('click', () => {
-            projectList = projectList.filter((e) => e !== project);
-            domUpdate();
+            if (window.confirm('Really delete?')) {
+                projectList = projectList.filter((e) => e !== project);
+                domUpdate();
+            }
         });
         buttonBox.appendChild(projectDeleteButton);
 
@@ -150,8 +152,10 @@ function domUpdate() {
             todoDeleteButton.classList.add('deletetodo');
             todoDeleteButton.innerHTML = 'X';
             todoDeleteButton.addEventListener('click', () => {
-                project.todoList = project.todoList.filter((e) => e !== todo);
-                domUpdate();
+                if (window.confirm('Really delete?')) {
+                    project.todoList = project.todoList.filter((e) => e !== todo);
+                    domUpdate();
+                }
             });
             buttonBox.appendChild(todoDeleteButton);
 
