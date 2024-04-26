@@ -1,5 +1,10 @@
 import './style.css';
 import { arrayMoveMutable } from 'array-move';
+import imageTrash from './img/trash-can.svg'
+import imagePlus from './img/plus-thick.svg'
+import imageUp from './img/arrow-up-bold.svg'
+import imageDown from './img/arrow-down-bold.svg'
+
 
 /* definitions */
 let projectList = [];
@@ -53,7 +58,7 @@ function domUpdate() {
 
         let projectDeleteButton = document.createElement('button');
         projectDeleteButton.classList.add('deleteproject');
-        projectDeleteButton.innerHTML = 'X';
+        projectDeleteButton.innerHTML = '<img class="icon" src="' + imageTrash +'">';
         projectDeleteButton.addEventListener('click', () => {
             if (window.confirm('Really delete?')) {
                 projectList = projectList.filter((e) => e !== project);
@@ -150,7 +155,7 @@ function domUpdate() {
 
             let todoDeleteButton = document.createElement('button');
             todoDeleteButton.classList.add('deletetodo');
-            todoDeleteButton.innerHTML = 'X';
+            todoDeleteButton.innerHTML = '<img class="icon" src="' + imageTrash +'">';
             todoDeleteButton.addEventListener('click', () => {
                 if (window.confirm('Really delete?')) {
                     project.todoList = project.todoList.filter((e) => e !== todo);
@@ -160,7 +165,7 @@ function domUpdate() {
             buttonBox.appendChild(todoDeleteButton);
 
             let todoUpButton = document.createElement('button');
-            todoUpButton.innerHTML = 'Up';
+            todoUpButton.innerHTML = '<img class="icon" src="' + imageUp +'">';
             todoUpButton.addEventListener('click', () => {
                 let todoIndex = project.todoList.findIndex((e) => e === todo);
                 if (todoIndex > 0) {
@@ -171,7 +176,7 @@ function domUpdate() {
             buttonBox.appendChild(todoUpButton);
 
             let todoDownButton = document.createElement('button');
-            todoDownButton.innerHTML = 'Down';
+            todoDownButton.innerHTML = '<img class="icon" src="' + imageDown +'">';
             todoDownButton.addEventListener('click', () => {
                 let todoIndex = project.todoList.findIndex((e) => e === todo);
                 if (todoIndex < project.todoList.length - 1) {
@@ -186,7 +191,7 @@ function domUpdate() {
         // add new todo button
         let newTodoButton = document.createElement('button');
         newTodoButton.classList.add('newtodo');
-        newTodoButton.innerHTML = '+';
+        newTodoButton.innerHTML = '<img class="icon" src="' + imagePlus +'">';
         newTodoButton.addEventListener('click', () => {
             project.addTodo('New todo', false, 'Description', today(), 'green');
             domUpdate();
@@ -196,7 +201,7 @@ function domUpdate() {
     // add new project button
     let newProjectButton = document.createElement('button');
     newProjectButton.classList.add('newproject');
-    newProjectButton.innerHTML = '+';
+    newProjectButton.innerHTML = '<img class="icon" src="' + imagePlus +'">';
     newProjectButton.addEventListener('click', () => {
         projectList.push(createProject('New project'));
         domUpdate();

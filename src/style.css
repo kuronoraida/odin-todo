@@ -65,7 +65,6 @@ h1 {
     font-weight: bold;
     font-size: 2em;
     padding: 30px 0px;
-    text-shadow: var(--text-shadow);
     color: black;
 }
 
@@ -75,6 +74,9 @@ button {
     border-radius: 999px;
     border: solid 2px black;
     background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }
 
 input[type='checkbox'] {
@@ -210,4 +212,9 @@ input[type='date'] {
     margin: 15px;
     margin-left: 0px;
     align-self: start;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
 }
